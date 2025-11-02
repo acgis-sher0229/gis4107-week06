@@ -1,4 +1,4 @@
-def dmstodd(dms):
+def dms2dd(dms):
     dd=""
     ddlon=""
     ddlat=""

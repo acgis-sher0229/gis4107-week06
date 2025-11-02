@@ -1,22 +1,28 @@
-import pytest
 import doc_scanner as ds
 
-@pytest.mark.parametrize("CSIS_code,expected",[
-    ("Tx6op3",True),
-    ("banana",False),
-    ("BTTx6op3528",True)
-    ])
+def test_has_x_code():
+    expected = True
+    in_text = '---Tx6op3----'
+    actual = ds.has_x_code(in_text)
+    assert expected == actual
 
-def test_has_x_code(CSIS_code, expected):
-    assert ds.has_x_code(CSIS_code) == expected
+    expected = False
+    in_text = '---Tx6op----'
+    actual = ds.has_x_code(in_text)
+    assert expected == actual
 
+def test_get_x_code_position():
+    expected = 1
+    in_text = "Tx6op3----"
+    actual = ds.get_x_code_position(in_text)
+    assert expected == actual
 
+    expected = 2
+    in_text = "-Tx6op3----"
+    actual = ds.get_x_code_position(in_text)
+    assert expected == actual
 
-@pytest.mark.parametrize("CSIS_code,expected",[
-    ("Tx6op3",0),
-    ("banana",-1),
-    ("BTTx6op3528",2)
-    ])
-
-def test_has_x_code(CSIS_code, expected):
-    assert ds.get_x_code_position(CSIS_code) == expected
+    expected = -1
+    in_text = "-----"
+    actual = ds.get_x_code_position(in_text)
+    assert expected == actual
